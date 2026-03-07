@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-primary: #6A2E91;
+  --color-accent: #F4A2A2;
+  --color-background-light: #F9F3EB;
+  --color-background-dark: #1A1612;
+
+  --font-display: "Instrument Serif", serif;
+  --font-sans: "Inter", sans-serif;
+
+  --radius: 0.5rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+}
+
+/* Custom utilities */
+.serif-italic {
+  font-style: italic;
+}
+
+.bg-cream-gradient {
+  background: radial-gradient(circle at top right, #fff, #F9F3EB);
+}
+
+.dark .bg-cream-gradient {
+  background: radial-gradient(circle at top right, #2a241d, #1A1612);
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Form page utilities */
+.interest-btn {
+  @apply flex items-center gap-2 px-5 py-3 rounded-full border-2 border-black/10 bg-white dark:bg-white/5 dark:border-white/10 text-slate-600 dark:text-slate-300 font-medium text-sm cursor-pointer transition-all hover:border-primary/40 select-none;
+}
+
+.interest-btn.selected {
+  @apply border-primary bg-primary/5 text-primary;
+}
+
+.input-field {
+  @apply w-full px-4 py-3.5 rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-white/5 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-sm;
+}
