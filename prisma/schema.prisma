@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  photo     String?
+  bio       String?
+  interests String?  // comma-separated
+  city      String   @default("Pune")
+  createdAt DateTime @default(now())
+
+  hostedPlans  Plan[]        @relation("PlanHost")
+  participants Participant[]
+}
+
+model Plan {
+  id              String   @id @default(cuid())
+  title           String
+  description     String?
+  category        String   // Coffee, Walks, Food, Events, Fitness, Explore City
+  location        String
+  city            String   @default("Pune")
+  dateTime        DateTime
+  maxParticipants Int      @default(5) // allowed range: 2-6
+  hostId          String
+  createdAt       DateTime @default(now())
+
+  host         User          @relation("PlanHost", fields: [hostId], references: [id])
+  participants Participant[]
+}
+
+model Participant {
+  id       String   @id @default(cuid())
+  planId   String
+  userId   String
+  joinedAt DateTime @default(now())
+
+  plan Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([planId, userId])
+}

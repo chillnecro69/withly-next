@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  turbopack: {
+    rules: {
+      "node_modules/.prisma/**/*.ts": {
+        loaders: ["swc-loader"],
+        as: "*.ts",
+      },
+    },
+  },
+  serverExternalPackages: ["@prisma/adapter-better-sqlite3", "better-sqlite3"],
 };
 
 export default nextConfig;
