@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
       hostPhoto: plan.host.photo,
       createdAt: plan.createdAt,
       participantsCount: plan.participants.length,
-      participants: plan.participants.map((p) => ({
+      participants: plan.participants.map((p: any) => ({
         id: p.user.id,
         name: p.user.name,
         photo: p.user.photo,

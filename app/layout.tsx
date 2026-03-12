@@ -6,9 +6,8 @@ import Footer from "@/components/Footer";
 import CursorGlow from "@/components/CursorGlow";
 
 export const metadata: Metadata = {
-  title: "Withly | Premium Real-World Companionship",
-  description:
-    "Real company, for real moments. Whether you're new to the city, going somewhere alone, or just want good company - Withly makes it easy.",
+  title: "Withly | Never do things alone in your city",
+  description: "Discover and join small social plans happening in your city. Find coffee meetups, walks, dinners and community events near you.",
 };
 
 export default function RootLayout({
