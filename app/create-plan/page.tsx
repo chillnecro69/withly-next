@@ -8,9 +8,23 @@ const categories = ["Coffee", "Walks", "Food", "Events", "Fitness", "Explore Cit
 
 export default function CreatePlanPage() {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Automatically prompt sign-in if unauthenticated
+  if (status === "unauthenticated") {
+    signIn("google", { callbackUrl: "/create-plan" });
+    return null;
+  }
+
+  if (status === "loading" || !session) {
+    return (
+      <main className="pt-32 pb-24 px-6 min-h-screen grid place-items-center">
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+      </main>
+    );
+  }
 
   const [formData, setFormData] = useState({
     title: "",
@@ -26,7 +40,7 @@ export default function CreatePlanPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!session) {
-      signIn("google");
+      signIn("google", { callbackUrl: "/create-plan" });
       return;
     }
 

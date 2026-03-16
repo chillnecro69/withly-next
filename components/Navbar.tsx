@@ -79,7 +79,7 @@ const Navbar = () => {
             </div>
           ) : (
             <button
-              onClick={() => signIn("google")}
+              onClick={() => signIn("google", { callbackUrl: "/" })}
               className="px-5 py-2 rounded-full border border-black/10 dark:border-white/10 text-sm font-medium hover:border-black/30 dark:hover:border-white/30 transition-all font-sans"
             >
               Sign In
@@ -146,7 +146,7 @@ const Navbar = () => {
               </>
             ) : (
               <button
-                onClick={() => { setMobileMenuOpen(false); signIn("google"); }}
+                onClick={() => { setMobileMenuOpen(false); signIn("google", { callbackUrl: "/" }); }}
                 className="text-center text-base font-medium p-2 mx-2 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10"
               >
                 Sign In with Google

@@ -1,17 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSession, signIn } from "next-auth/react";
 import Link from "next/link";
 
 export default function ProfilePage() {
-  const [user, setUser] = useState<any>(null);
+  const { data: session, status } = useSession();
 
-  useEffect(() => {
-    const saved = localStorage.getItem("withly_user");
-    if (saved) {
-      setUser(JSON.parse(saved));
-    }
-  }, []);
+  if (status === "unauthenticated") {
+    signIn("google", { callbackUrl: "/profile" });
+    return null;
+  }
+
+  if (status === "loading" || !session?.user) {
+    return (
+      <main className="pt-32 pb-24 px-6 min-h-screen grid place-items-center">
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+      </main>
+    );
+  }
+
+  const user = session.user as any;
 
   if (!user) {
     return (
@@ -36,17 +44,17 @@ export default function ProfilePage() {
         <div className="bg-white dark:bg-white/5 border border-black/5 dark:border-white/10 rounded-[2.5rem] p-10 shadow-2xl shadow-black/5">
             <div className="flex flex-col items-center text-center">
                <div className="w-32 h-32 rounded-full bg-primary/10 border-4 border-white dark:border-slate-900 flex items-center justify-center mb-8 overflow-hidden">
-                  {user.photo ? (
-                    <img src={user.photo} alt={user.name} className="w-full h-full object-cover" />
+                  {user.image ? (
+                    <img src={user.image} alt={user.name!} className="w-full h-full object-cover" />
                   ) : (
-                    <span className="text-primary font-display font-bold text-5xl">{user.name.charAt(0)}</span>
+                    <span className="text-primary font-display font-bold text-5xl">{user.name?.charAt(0)}</span>
                   )}
                </div>
                
                <h1 className="text-4xl font-display font-bold mb-2">{user.name}</h1>
                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-white/10 text-xs font-bold uppercase tracking-wider text-slate-500 mb-8">
                   <span className="material-symbols-outlined text-sm">location_on</span>
-                  {user.city}
+                  {user.city || "Pune"}
                </div>
 
                <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed mb-10 italic">
