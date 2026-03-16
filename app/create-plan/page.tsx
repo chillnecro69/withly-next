@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession, signIn } from "next-auth/react";
 
 const categories = ["Coffee", "Walks", "Food", "Events", "Fitness", "Explore City"];
 
 export default function CreatePlanPage() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -23,6 +25,11 @@ export default function CreatePlanPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!session) {
+      signIn("google");
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
@@ -36,6 +43,7 @@ export default function CreatePlanPage() {
         body: JSON.stringify({
           ...formData,
           dateTime: dateTime.toISOString(),
+          hostId: session.user.id,
         }),
       });
 

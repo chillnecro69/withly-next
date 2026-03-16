@@ -57,8 +57,8 @@ export async function POST(request: NextRequest) {
         hostId: resolvedHostId,
       },
       include: {
-        host: { select: { id: true, name: true, photo: true } },
-        participants: { include: { user: { select: { id: true, name: true, photo: true } } } },
+        host: { select: { id: true, name: true, image: true } },
+        participants: { include: { user: { select: { id: true, name: true, image: true } } } },
       },
     });
 

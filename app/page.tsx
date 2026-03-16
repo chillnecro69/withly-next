@@ -18,7 +18,7 @@ export default function HomePage() {
             </div>
             
             <h1 className="text-6xl md:text-8xl font-display font-bold tracking-tight mb-8 leading-[0.95] animate-fade-in delay-100">
-              Never do things alone in your <span className="text-primary italic serif-italic">city.</span>
+              Never do things alone in your <span className="italic font-normal">city.</span>
             </h1>
             
             <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 mb-10 leading-relaxed animate-fade-in delay-200">

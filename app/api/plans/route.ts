@@ -18,10 +18,10 @@ export async function GET(request: NextRequest) {
     const plans = await prisma.plan.findMany({
       where,
       include: {
-        host: { select: { id: true, name: true, photo: true } },
+        host: { select: { id: true, name: true, image: true } },
         participants: {
           include: {
-            user: { select: { id: true, name: true, photo: true } },
+            user: { select: { id: true, name: true, image: true } },
           },
         },
       },
@@ -60,13 +60,13 @@ export async function GET(request: NextRequest) {
       maxParticipants: plan.maxParticipants,
       hostId: plan.hostId,
       hostName: plan.host.name,
-      hostPhoto: plan.host.photo,
+      hostPhoto: plan.host.image,
       createdAt: plan.createdAt,
       participantsCount: plan.participants.length,
       participants: plan.participants.map((p) => ({
         id: p.user.id,
         name: p.user.name,
-        photo: p.user.photo,
+        photo: p.user.image,
         joinedAt: p.joinedAt,
       })),
       isFull: plan.participants.length >= plan.maxParticipants,

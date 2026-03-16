@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSession, signIn } from "next-auth/react";
 
 type Props = {
   planId: string;
@@ -8,22 +9,27 @@ type Props = {
 };
 
 export default function JoinButton({ planId, isFull }: Props) {
+  const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
   const [joined, setJoined] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function handleJoin() {
+    if (!session) {
+      signIn("google");
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
     try {
-      // For demo, use the demo user
       const res = await fetch("/api/plans/join", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           planId,
-          userId: "demo", // In production, this would come from auth
+          userId: session.user.id,
         }),
       });
 
@@ -42,6 +48,8 @@ export default function JoinButton({ planId, isFull }: Props) {
   }
 
   async function handleLeave() {
+    if (!session) return;
+
     setLoading(true);
     setError(null);
 
@@ -51,7 +59,7 @@ export default function JoinButton({ planId, isFull }: Props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           planId,
-          userId: "demo",
+          userId: session.user.id,
         }),
       });
 

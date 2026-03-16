@@ -13,10 +13,10 @@ export async function GET(
     const plan = await prisma.plan.findUnique({
       where: { id },
       include: {
-        host: { select: { id: true, name: true, photo: true, bio: true } },
+        host: { select: { id: true, name: true, image: true, bio: true } },
         participants: {
           include: {
-            user: { select: { id: true, name: true, photo: true, bio: true } },
+            user: { select: { id: true, name: true, image: true, bio: true } },
           },
           orderBy: { joinedAt: "asc" },
         },
@@ -39,7 +39,7 @@ export async function GET(
         maxParticipants: plan.maxParticipants,
         hostId: plan.hostId,
         hostName: plan.host.name,
-        hostPhoto: plan.host.photo,
+        hostPhoto: plan.host.image,
         hostBio: plan.host.bio,
         createdAt: plan.createdAt,
         participantsCount: plan.participants.length,
@@ -47,7 +47,7 @@ export async function GET(
         participants: plan.participants.map((p) => ({
           id: p.user.id,
           name: p.user.name,
-          photo: p.user.photo,
+          photo: p.user.image,
           bio: p.user.bio,
           joinedAt: p.joinedAt,
         })),

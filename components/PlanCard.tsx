@@ -84,9 +84,15 @@ const PlanCard = ({
             <span className="material-symbols-outlined text-base">location_on</span>
             <span className="line-clamp-1">{location}</span>
           </div>
-          <div className="flex items-center gap-2 text-slate-800 dark:text-slate-200 font-semibold">
+          <div className="flex items-center gap-2 text-slate-800 dark:text-slate-200 font-medium">
             <span className="material-symbols-outlined text-base">schedule</span>
             <span>{isToday ? "Today" : dateObj.toLocaleDateString("en-IN", { weekday: 'short', day: 'numeric', month: 'short' })} at {timeStr}</span>
+          </div>
+          <div className="flex items-center gap-2 mt-2">
+            <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-bold text-primary overflow-hidden shrink-0">
+               {hostPhoto ? <img src={hostPhoto} alt={hostName} className="w-full h-full object-cover" /> : hostName.charAt(0)}
+            </div>
+            <span className="text-xs">Hosted by <span className="font-medium text-slate-900 dark:text-slate-100">{hostName}</span></span>
           </div>
         </div>
 

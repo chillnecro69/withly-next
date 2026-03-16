@@ -25,10 +25,10 @@ export default async function PlanDetailPage({ params }: Props) {
   const plan = await prisma.plan.findUnique({
     where: { id },
     include: {
-      host: { select: { id: true, name: true, photo: true, bio: true } },
+      host: { select: { id: true, name: true, image: true, bio: true } },
       participants: {
         include: {
-          user: { select: { id: true, name: true, photo: true } },
+          user: { select: { id: true, name: true, image: true } },
         },
         orderBy: { joinedAt: "asc" },
       },
@@ -142,7 +142,7 @@ export default async function PlanDetailPage({ params }: Props) {
               <span className="material-symbols-outlined text-primary text-xl mt-0.5">person</span>
               <div>
                 <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Hosted by</p>
-                <p className="font-semibold">{plan.host.name}</p>
+                <p className="font-semibold">{plan.host.name || "Withly Host"}</p>
               </div>
             </div>
           </div>
@@ -185,10 +185,10 @@ export default async function PlanDetailPage({ params }: Props) {
                   className="flex items-center gap-4 p-4 rounded-xl bg-white dark:bg-white/5 border border-black/5 dark:border-white/10"
                 >
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm flex-shrink-0">
-                    {p.user.name.charAt(0).toUpperCase()}
+                    {(p.user.name || "U").charAt(0).toUpperCase()}
                   </div>
                   <div>
-                    <p className="font-semibold text-sm">{p.user.name}</p>
+                    <p className="font-semibold text-sm">{p.user.name || "Guest User"}</p>
                     <p className="text-xs text-slate-500">
                       Joined {new Date(p.joinedAt).toLocaleDateString("en-IN")}
                     </p>

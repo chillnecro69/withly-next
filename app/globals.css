@@ -3,13 +3,13 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --color-primary: #6A2E91;
-  --color-accent: #F4A2A2;
-  --color-background-light: #F9F3EB;
+  --color-primary: #1a1a18;
+  --color-accent: #e8e6e0;
+  --color-background-light: #FAFAF8;
   --color-background-dark: #1A1612;
 
-  --font-display: "Instrument Serif", serif;
-  --font-sans: "Inter", sans-serif;
+  --font-display: "Playfair Display", serif;
+  --font-sans: "DM Sans", sans-serif;
 
   --radius: 0.5rem;
   --radius-xl: 1rem;

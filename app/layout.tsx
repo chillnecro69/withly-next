@@ -4,6 +4,7 @@ import ThemeProvider from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CursorGlow from "@/components/CursorGlow";
+import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
   title: "Withly | Never do things alone in your city",
@@ -25,7 +26,7 @@ export default function RootLayout({
           rel="preconnect"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;500&family=Playfair+Display:ital@0;1&display=swap"
           rel="stylesheet"
         />
         <link
@@ -35,10 +36,12 @@ export default function RootLayout({
       </head>
       <body className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-sans transition-colors duration-300">
         <ThemeProvider>
-          <CursorGlow />
-          <Navbar />
-          {children}
-          <Footer />
+          <Providers>
+            <CursorGlow />
+            <Navbar />
+            {children}
+            <Footer />
+          </Providers>
         </ThemeProvider>
       </body>
     </html>
